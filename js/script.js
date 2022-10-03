@@ -64,6 +64,7 @@ function playSong() {
   playBtn.classList.replace("fa-play", "fa-pause");
   playBtn.setAttribute("title", "Pause");
   music.play();
+  // console.log("Played");
 }
 
 // Pause
@@ -72,21 +73,22 @@ function pauseSong() {
   playBtn.classList.replace("fa-pause", "fa-play");
   playBtn.setAttribute("title", "Play");
   music.pause();
+  // console.log("Pused");
 }
 
 // Play or Pause Event Listener
 playBtn.addEventListener("click", function () {
-  if (playBtn) {
-    // console.log(playBtn);
-    pauseSong()
-  } else {
+  if (playBtn.classList.contains("fa-play")) {
     playSong()
+  }
+  else if (playBtn.classList.contains("fa-pause")) {
+    pauseSong();
   }
 })
 
 // Update DOM
 function loadSong(song) {
-  console.log(song);
+  // console.log(song);
   title.textContent = song.displayName;
   artist.textContent = song.artist;
   music.src = song.path;
@@ -107,9 +109,10 @@ function changeCover(cover) {
 // Previous Song
 function prevSong() {
   songIndex--;
-  if (songIndex === 0) {
+  if (songIndex < 0) {
     songIndex = songs.length - 1;
   }
+  console.log(songIndex);
   loadSong(songs[songIndex]);
   playSong();
 }
@@ -120,6 +123,7 @@ function nextSong() {
   if (songIndex > songs.length - 1) {
     songIndex = 0;
   }
+
   loadSong(songs[songIndex]);
   playSong();
 }
